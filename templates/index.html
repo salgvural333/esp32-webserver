@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="2">
+    <title>ESP Kontrol Paneli</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 40px;
+            color: #333;
+        }
+        h1 {
+            color: #5a5a5a;
+        }
+        p {
+            font-size: 18px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .data-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .data-box {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            flex: 1;
+            margin: 0 10px;
+            text-align: center;
+        }
+        .data-title {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        .data-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>ESP8266 Kontrol Paneli</h1>
+    <div class="data-container">
+        <div class="data-box">
+            <div class="data-title">Sıcaklık (°C)</div>
+            <div class="data-value">{{ temperature }}</div>
+        </div>
+        <div class="data-box">
+            <div class="data-title">Nem (%)</div>
+            <div class="data-value">{{ humidity }}</div>
+        </div>
+    </div>
+    <hr>
+    <h2>LED Kontrolü</h2>
+    <p>LED Durumu: {{ led_status }}</p>
+    <form action="/toggle_led" method="post">
+        {% if led_status == 'on' %}
+            <button type="submit">LED'i Kapat</button>
+        {% else %}
+            <button type="submit">LED'i Aç</button>
+        {% endif %}
+    </form>
+    <hr>
+    <p>
+        {% if esp_ip %}
+            ESP Bağlandı, IP Adresi: {{ esp_ip }}
+        {% else %}
+            ESP Bağlı Değil
+        {% endif %}
+    </p>
+</body>
+</html>
